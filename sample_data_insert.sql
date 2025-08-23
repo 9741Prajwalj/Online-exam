@@ -1,3 +1,42 @@
+-- Create a tables
+CREATE TABLE users (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(255) NOT NULL UNIQUE,
+password VARCHAR(255) NOT NULL,
+email VARCHAR(255) UNIQUE,
+role ENUM('ADMIN', 'FACULTY', 'STUDENT', 'PRINCIPAL') NOT NULL
+);
+
+CREATE TABLE exams (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+subject VARCHAR(255),
+durationMinutes INT,
+dateTime DATETIME
+);
+
+CREATE TABLE questions (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+exam_id BIGINT NOT NULL,
+text VARCHAR(1000),
+optionA VARCHAR(255),
+optionB VARCHAR(255),
+optionC VARCHAR(255),
+optionD VARCHAR(255),
+correctAnswer VARCHAR(255),
+FOREIGN KEY (exam_id) REFERENCES exams(id)
+);
+
+CREATE TABLE results (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+exam_id BIGINT NOT NULL,
+student_id BIGINT NOT NULL,
+score INT,
+status VARCHAR(255),
+FOREIGN KEY (exam_id) REFERENCES exams(id),
+FOREIGN KEY (student_id) REFERENCES users(id)
+);
+
+
 -- Insert sample data into users table
 -- All users have password: 12345678 (BCrypt encoded)
 INSERT INTO users (username, password, email, role) VALUES
