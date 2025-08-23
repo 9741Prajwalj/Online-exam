@@ -1,0 +1,1 @@
+package com.example.exam.dto; import lombok.*; @Getter @AllArgsConstructor public class JwtResponse { private String token; }

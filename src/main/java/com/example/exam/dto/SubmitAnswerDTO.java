@@ -1,0 +1,1 @@
+package com.example.exam.dto; import lombok.*; import java.util.Map; @Getter @Setter public class SubmitAnswerDTO { private Long examId; private Map<Long,String> answers; }

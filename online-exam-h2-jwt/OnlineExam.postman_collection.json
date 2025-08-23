@@ -1,0 +1,190 @@
+{
+  "info": {
+    "name": "Online Exam H2 JWT",
+    "_postman_id": "exam-h2-jwt",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth Register STUDENT",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"student1\", \"email\": \"s1@example.com\", \"password\": \"pass123\", \"role\": \"STUDENT\"}"
+        }
+      }
+    },
+    {
+      "name": "Auth Login ADMIN",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"admin\", \"password\": \"admin123\"}"
+        }
+      }
+    },
+    {
+      "name": "Create Exam (ADMIN/FACULTY)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/exams",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "exams"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"subject\": \"Java Basics\", \"durationMinutes\": 10, \"dateTime\": \"2025-01-01T10:00:00\"}"
+        }
+      }
+    },
+    {
+      "name": "Add Question (ADMIN/FACULTY)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/questions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "questions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"exam\": {\"id\": 1}, \"text\": \"2+2=?\", \"optionA\": \"3\", \"optionB\": \"4\", \"optionC\": \"5\", \"optionD\": \"6\", \"correctAnswer\": \"B\"}"
+        }
+      }
+    },
+    {
+      "name": "List Questions by Exam",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/questions/by-exam/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "questions",
+            "by-exam",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Submit Exam (STUDENT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{student_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/student/submit",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "student",
+            "submit"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"examId\": 1, \"answers\": {\"1\": \"B\"}}"
+        }
+      }
+    }
+  ]
+}

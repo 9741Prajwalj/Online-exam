@@ -1,0 +1,1 @@
+package com.example.exam.model; public enum Role { ADMIN, FACULTY, STUDENT, PRINCIPAL }

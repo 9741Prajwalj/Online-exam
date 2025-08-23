@@ -1,0 +1,1 @@
+package com.example.exam.dto; import com.example.exam.model.Role; import lombok.*; @Getter @Setter public class RegisterRequest { private String username; private String email; private String password; private Role role; }

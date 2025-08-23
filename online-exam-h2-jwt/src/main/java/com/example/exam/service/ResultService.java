@@ -1,0 +1,1 @@
+package com.example.exam.service; import com.example.exam.model.Result; import com.example.exam.repository.ResultRepository; import org.springframework.stereotype.Service; @Service public class ResultService { private final ResultRepository repo; public ResultService(ResultRepository repo){this.repo=repo;} public Result save(Result r){ return repo.save(r);} }
