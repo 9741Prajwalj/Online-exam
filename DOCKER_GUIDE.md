@@ -168,3 +168,59 @@ docker ps
 
 <!-- to see the logs file in the backend folder -->
 docker-compose -f docker-compose-with-db.yml logs backend
+
+<!-- To check the Mysql database from the docker command -->
+<!-- Open a MySQL shell inside the running container: -->
+
+docker exec -it online-exam-h2-jwt-mysql-1 mysql -u examuser -p examdb
+<!-- Enter the password when prompted: -->
+
+Enter password: exampassword
+
+<!-- Once connected to the MySQL shell, you can run these commands: -->
+<!-- List all tables: -->
+SHOW TABLES;
+
+<!-- View data from a specific table (e.g., users table): -->
+SELECT * FROM users;
+
+<!-- View data from exams table: -->
+SELECT * FROM exams;
+
+<!-- View data from questions table: -->
+SELECT * FROM questions;
+
+<!-- View data from results table: -->
+SELECT * FROM results;
+
+<!-- Check table structure: -->
+DESCRIBE users;
+
+<!-- To exit the MySQL shell: -->
+exit;
+
+<!-- Alternative method using root user: -->
+docker exec -it online-exam-h2-jwt-mysql-1 mysql -u root -p
+<!-- Password: rootpassword -->
+
+
+<!-- To push the images to the Docker hub flow the steps -->
+<!-- 1. Log in to Docker Hub -->
+docker login
+
+<!-- 2. Tag Images for Your Repository -->
+9741prajwalj/online-exam-conducting
+
+<!-- Backend Image -->
+docker tag online-exam-h2-jwt-backend:latest 9741prajwalj/online-exam-conducting:backend
+
+<!-- Frontend Image -->
+docker tag online-exam-h2-jwt-frontend:latest 9741prajwalj/online-exam-conducting:frontend
+
+<!-- MySQL (Optional – only if you created a custom DB image) -->
+docker tag mysql:8.0 9741prajwalj/online-exam-conducting:mysql
+
+<!-- 3. Push Images -->
+docker push 9741prajwalj/online-exam-conducting:backend
+docker push 9741prajwalj/online-exam-conducting:frontend
+docker push 9741prajwalj/online-exam-conducting:mysql   # only if needed
