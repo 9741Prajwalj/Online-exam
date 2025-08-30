@@ -1,0 +1,30 @@
+# Use the official Node.js image as a base
+FROM node:18 AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY frontend/package.json frontend/package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the frontend files
+COPY frontend/ ./
+
+# Build the application with the correct API URL
+ARG REACT_APP_API_URL=http://localhost:8080/api
+RUN REACT_APP_API_URL=${REACT_APP_API_URL} npm run build
+
+# Use a lightweight server to serve the built application
+FROM nginx:alpine
+
+# Copy the build files to the nginx server
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose the server port
+EXPOSE 80
+
+# Start nginx server
+CMD ["nginx", "-g", "daemon off;"]

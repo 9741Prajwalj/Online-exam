@@ -1,0 +1,28 @@
+# Use the official OpenJDK image as a base
+FROM openjdk:17-jdk-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy Maven wrapper and pom.xml
+COPY online-exam-h2-jwt/mvnw .
+COPY online-exam-h2-jwt/.mvn/ .mvn/
+COPY online-exam-h2-jwt/pom.xml .
+
+# Make mvnw executable
+RUN chmod +x mvnw
+
+# Copy source code
+COPY online-exam-h2-jwt/src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Copy the built jar file to the image
+COPY online-exam-h2-jwt/target/online-exam-h2-jwt-1.0-SNAPSHOT.jar app.jar
+
+# Expose the application port
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
