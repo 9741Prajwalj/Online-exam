@@ -157,3 +157,14 @@ If you encounter issues:
 2. Verify all containers are running with `docker ps`
 3. Ensure ports are not conflicting
 4. Check if the database is accessible
+
+
+<!-- to run all the images to run container -->
+docker-compose -f docker-compose-with-db.yml up -d
+
+<!-- to check how many continer is running -->
+docker ps
+
+
+<!-- to see the logs file in the backend folder -->
+docker-compose -f docker-compose-with-db.yml logs backend
